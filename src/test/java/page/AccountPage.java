@@ -7,7 +7,7 @@ public class AccountPage extends BasePage {
     private static By tittle = By.xpath("//h1[@class='customer__title']");
 
     public String getTextTittle() throws InterruptedException {
-        WebElement element = findElementWithRetries(tittle, 5);
+        WebElement element = findElementWithRetries(tittle, 3);
         return getText(element);
     }
 }
