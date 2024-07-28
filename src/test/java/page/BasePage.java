@@ -146,9 +146,17 @@ public class BasePage extends DriverManager {
 
     public static boolean isElementVisibleAndEnabled(WebElement element) {
         try {
-            return element.isDisplayed() && element.isEnabled();
+            return isDisplayed(element) && isEnabled(element);
         } catch (Exception e) {
             return false; // Element is not present or not interactable
         }
+    }
+
+    public static boolean isDisplayed(WebElement element) {
+        return element.isDisplayed();
+    }
+
+    public static boolean isEnabled(WebElement element) {
+        return element.isEnabled();
     }
 }
