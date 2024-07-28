@@ -31,7 +31,7 @@ public class BasePage extends DriverManager {
         throw new NoSuchElementException("El elemento no fue encontrado después de " + countMax + " intentos.");
     }
 
-    public boolean waitWebElementIsDisplayed(WebElement element, int countMax) throws InterruptedException {
+    public static boolean waitWebElementIsDisplayed(WebElement element, int countMax) throws InterruptedException {
         int count = 0;
         while (count < countMax) {
             try {
@@ -82,9 +82,25 @@ public class BasePage extends DriverManager {
     }
 
     public static void clickByText(String text) throws InterruptedException {
-        WebElement element = findElementWithRetries(By.xpath("//button[contains(text(),'" + text + "')]"), 5);
-        waitWebElementIsEnabled(element, 5);
-        click(element);
+        boolean found = true;
+        do {
+            try {
+                WebElement element = findElementWithRetries(By.xpath("//button[contains(text(),'" + text + "')]"), 5);
+                waitWebElementIsEnabled(element, 5);
+                click(element);
+
+                // Esperar un segundo antes de verificar si el elemento sigue presente
+                waitForSeconds(1);
+
+                // Verificar si el elemento sigue presente
+                if (!waitWebElementIsDisplayed(element, 1)) {
+                    found = false; // Salir del bucle si el elemento ya no está presente
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println("Elemento no encontrado o ya no está presente.");
+                found = false; // Salir del bucle si el elemento ya no está presente o no se encontró
+            }
+        } while (found);
     }
 
     public String getUrl() {
@@ -110,5 +126,10 @@ public class BasePage extends DriverManager {
         if (!found) {
             throw new AssertionError("Los textos no coincidieron luego de " + countMax + " intentos.");
         }
+    }
+
+    public static void validateText(String text) throws InterruptedException {
+        WebElement element = findElementWithRetries(By.xpath("//*[contains(text(),'" + text + "')]"), 5);
+        waitWebElementIsDisplayed(element, 5);
     }
 }

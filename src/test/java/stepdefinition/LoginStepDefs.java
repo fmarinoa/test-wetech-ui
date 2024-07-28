@@ -1,11 +1,13 @@
 package stepdefinition;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import step.LoginSteps;
 
 import static hook.DriverManager.screenShot;
 import static page.BasePage.clickByText;
+import static page.BasePage.validateText;
 
 public class LoginStepDefs {
     LoginSteps loginSteps;
@@ -31,4 +33,9 @@ public class LoginStepDefs {
         clickByText(arg0);
     }
 
+    @Then("valido el mensaje {string}")
+    public void validoElMensaje(String arg0) throws InterruptedException {
+        validateText(arg0);
+        screenShot();
+    }
 }

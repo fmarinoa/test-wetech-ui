@@ -21,7 +21,7 @@ public class AccountSteps {
         boolean found = false;
         do {
             try {
-                accountPage.validateSubstringInCurrentUrl("account", 1);
+                accountPage.validateSubstringInCurrentUrl("account", 5);
                 assertEquals(accountPage.getTextTittle(), "Cuenta");
                 found = true;
             } catch (NoSuchElementException e) {
@@ -29,7 +29,7 @@ public class AccountSteps {
                     clickByText("Iniciar sesión");
                     waitForSeconds(1);
                 } catch (NoSuchElementException ignored) {
-                    accountPage.validateSubstringInCurrentUrl("account", 1);
+                    accountPage.validateSubstringInCurrentUrl("account", 5);
                     assertEquals(accountPage.getTextTittle(), "Cuenta");
                     found = true;
                 }

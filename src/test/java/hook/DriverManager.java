@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static hook.UserAgentGenerator.getRandomUserAgent;
+
 public class DriverManager {
     private static WebDriver driver;
     private static Scenario scenario;
@@ -17,13 +19,30 @@ public class DriverManager {
     public static WebDriver getDriver() {
         if (driver == null) {
             WebDriverManager.chromedriver().setup();
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--ignore-certificate-errors");
-            driver = new ChromeDriver(options); // Pasa las opciones aquí
+            driver = new ChromeDriver(getChromeOptions()); // Crea la instancia del ChromeDriver
+            driver.manage().deleteAllCookies(); // Borra todas las cookies
+            driver.navigate().refresh(); // Refresca la página
         }
         return driver;
     }
 
+
+    private static ChromeOptions getChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-web-security");
+        options.addArguments("--allow-running-insecure-content");
+        options.addArguments("--user-agent=" + getRandomUserAgent());
+        options.addArguments("--incognito");
+        options.addArguments("--disable-save-password-bubble");
+        return options;
+    }
+
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+    }
 
     @Before(order = 0)
     public void setUp() {
@@ -36,11 +55,8 @@ public class DriverManager {
     }
 
     @After
-    public static void quitDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
-        }
+    public void tearDown() {
+        quitDriver();
     }
 
     public static void screenShot() {
