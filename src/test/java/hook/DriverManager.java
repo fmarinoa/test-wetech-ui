@@ -1,8 +1,6 @@
 package hook;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -40,8 +38,8 @@ public class DriverManager {
     public static void quitDriver() {
         if (driver != null) {
             driver.quit();
-            driver = null;
         }
+        driver = null;
     }
 
     @Before(order = 0)
@@ -54,8 +52,8 @@ public class DriverManager {
         DriverManager.scenario = scenario;
     }
 
-    @After
-    public void tearDown() {
+    @AfterAll
+    public static void tearDown() {
         quitDriver();
     }
 

@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         glue = {"stepdefinition", "hook"},
         plugin = {"html:target/cucumber/cucumber-report.html",
                 "json:target/cucumber/cucumber.json"},
-        tags = "@LoginUnsuccessful"
+        tags = "@ValidatePriceOfProduct"
 )
 public class Runner {
 
