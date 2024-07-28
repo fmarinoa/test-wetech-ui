@@ -8,7 +8,8 @@ import static util.Scroller.scrollByDown;
 
 public class SearchProductPage extends BasePage {
 
-    private static By price = By.xpath("(//div[@class='price__regular']//span)[2]");
+    private static By priceRegular = By.xpath("(//div[@class='price__regular']//span)[2]");
+    private static By priceSale = By.xpath("(//div[@class='price__sale']//span)[4]");
 
 
     public WebElement returnElmentProduct(String arg0) throws InterruptedException {
@@ -49,7 +50,12 @@ public class SearchProductPage extends BasePage {
     }
 
     public String getPrice() throws InterruptedException {
-        WebElement element = findElementWithRetries(price, 5);
-        return getText(element);
+        WebElement priceRegular = findElementWithRetries(SearchProductPage.priceRegular, 5);
+        String price = getText(priceRegular);
+        if (price.isEmpty()) {
+            WebElement priceSale = findElementWithRetries(SearchProductPage.priceSale, 5);
+            price = getText(priceSale);
+        }
+        return price;
     }
 }
