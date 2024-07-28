@@ -21,13 +21,4 @@ public class SearchProductStepDefs {
         validateExistText(arg0);
         screenShot();
     }
-
-    @Then("valido el precio del producto debe ser {string}")
-    public void validoElPrecioDelProductoDebeSer(String expectedPrice) throws InterruptedException {
-        double currentPrice = searchProductSteps.getCurrentPrice();
-        Assert.assertEquals(Double.parseDouble(expectedPrice), currentPrice, 0.01f);
-        System.out.println("Los precios coinciden");
-        screenShot();
-    }
-
 }

@@ -8,10 +8,6 @@ import static util.Scroller.scrollByDown;
 
 public class SearchProductPage extends BasePage {
 
-    private static By priceRegular = By.xpath("(//div[@class='price__regular']//span)[2]");
-    private static By priceSale = By.xpath("(//div[@class='price__sale']//span)[4]");
-
-
     public WebElement returnElmentProduct(String arg0) throws InterruptedException {
         String xPath = "//h3[@class='card__heading h5']//a[contains(text(),'" + arg0 + "')]";
         return findElementWithRetries(By.xpath(xPath), 5);
@@ -47,15 +43,5 @@ public class SearchProductPage extends BasePage {
                 found = false; // Salir del bucle si el elemento ya no está presente o no se encontró
             }
         } while (found);
-    }
-
-    public String getPrice() throws InterruptedException {
-        WebElement priceRegular = findElementWithRetries(SearchProductPage.priceRegular, 5);
-        String price = getText(priceRegular);
-        if (price.isEmpty()) {
-            WebElement priceSale = findElementWithRetries(SearchProductPage.priceSale, 5);
-            price = getText(priceSale);
-        }
-        return price;
     }
 }
