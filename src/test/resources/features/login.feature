@@ -1,10 +1,12 @@
 @Login
 Feature: Login
 
-  @LoginSuccessful
-  Scenario Outline: Login successful
+  Background:
     Given estoy en la página principal
     And me dirijo a inciar sesión
+
+  @LoginSuccessful
+  Scenario Outline: Login successful
     When escribo el correo "<user>"
     And escribo la contraseña "<pass>"
     And presiono el botón "Iniciar sesión"
@@ -16,8 +18,6 @@ Feature: Login
 
   @LoginUnsuccessful
   Scenario Outline: Login unsuccessful
-    Given estoy en la página principal
-    And me dirijo a inciar sesión
     When escribo el correo "<user>"
     And escribo la contraseña "<pass>"
     And presiono el botón "Iniciar sesión"
