@@ -1,4 +1,4 @@
-package hook;
+package util;
 
 import java.util.Random;
 

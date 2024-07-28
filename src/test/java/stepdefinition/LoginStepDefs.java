@@ -7,7 +7,7 @@ import step.LoginSteps;
 
 import static hook.DriverManager.screenShot;
 import static page.BasePage.clickByText;
-import static page.BasePage.validateText;
+import static page.BasePage.validateExistText;
 
 public class LoginStepDefs {
     LoginSteps loginSteps;
@@ -35,7 +35,7 @@ public class LoginStepDefs {
 
     @Then("valido el mensaje {string}")
     public void validoElMensaje(String arg0) throws InterruptedException {
-        validateText(arg0);
+        validateExistText(arg0);
         screenShot();
     }
 }

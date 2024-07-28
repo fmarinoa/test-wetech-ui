@@ -5,9 +5,9 @@ import page.HomePage;
 import page.LoginPage;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 import static page.BasePage.waitForSeconds;
+import static util.PressKeys.pressEsc;
 
 
 public class HomeSteps {
@@ -33,13 +33,15 @@ public class HomeSteps {
                 loginPage.validarEstarEnLogin(1);
                 found = true;
             } catch (NoSuchElementException e) {
-                Robot robot = new Robot();
-                // Simula la presión de la tecla ESC
-                robot.keyPress(KeyEvent.VK_ESCAPE);
-                robot.keyRelease(KeyEvent.VK_ESCAPE);
-                System.out.println("Presioné escape");
+                pressEsc();
                 waitForSeconds(1);
             }
         } while (!found);
+    }
+
+    public void buscarProducto(String arg0) throws InterruptedException {
+        homePage.clickBusqueda();
+        homePage.escribirProducto(arg0);
+        homePage.clickBusqueda2();
     }
 }

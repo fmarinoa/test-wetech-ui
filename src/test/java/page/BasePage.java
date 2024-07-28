@@ -3,6 +3,11 @@ package page;
 import hook.DriverManager;
 import org.openqa.selenium.*;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
+import static util.Scroller.scrollByDown;
+
 public class BasePage extends DriverManager {
 
     private static final WebDriver driver = getDriver();
@@ -66,7 +71,12 @@ public class BasePage extends DriverManager {
     }
 
     public static void click(WebElement element) {
-        element.click();
+        try {
+            element.click();
+        } catch (Exception e) {
+            System.out.println("Error al hacer click en el elemento: " + e.getMessage());
+            throw e;
+        }
     }
 
     public void sendKeys(WebElement element, String arg0) {
@@ -128,8 +138,17 @@ public class BasePage extends DriverManager {
         }
     }
 
-    public static void validateText(String text) throws InterruptedException {
+    public static void validateExistText(String text) throws InterruptedException {
         WebElement element = findElementWithRetries(By.xpath("//*[contains(text(),'" + text + "')]"), 5);
-        waitWebElementIsDisplayed(element, 5);
+        waitWebElementIsEnabled(element, 5);
+        System.out.println("Valido que el texto " + text + " está presente.");
+    }
+
+    public static boolean isElementVisibleAndEnabled(WebElement element) {
+        try {
+            return element.isDisplayed() && element.isEnabled();
+        } catch (Exception e) {
+            return false; // Element is not present or not interactable
+        }
     }
 }

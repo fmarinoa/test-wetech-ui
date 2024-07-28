@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import static hook.UserAgentGenerator.getRandomUserAgent;
+import static util.UserAgentGenerator.getRandomUserAgent;
 
 public class DriverManager {
     private static WebDriver driver;
