@@ -3,11 +3,6 @@ package page;
 import hook.DriverManager;
 import org.openqa.selenium.*;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-
-import static util.Scroller.scrollByDown;
-
 public class BasePage extends DriverManager {
 
     private static final WebDriver driver = getDriver();
@@ -144,12 +139,22 @@ public class BasePage extends DriverManager {
         System.out.println("Valido que el texto " + text + " está presente.");
     }
 
-    public static boolean isElementVisibleAndEnabled(WebElement element) {
-        try {
-            return isDisplayed(element) && isEnabled(element);
-        } catch (Exception e) {
-            return false; // Element is not present or not interactable
+    public static boolean isElementVisibleAndEnabled(WebElement element, int attemptsMax) throws InterruptedException {
+        int attempt = 0;
+        while (attempt < attemptsMax) {
+            try {
+                if (isDisplayed(element) && isEnabled(element)) {
+                    return true;
+                }
+            } catch (Exception ignored) {
+            }
+            attempt++;
+            if (attempt == attemptsMax) {
+                return false;
+            }
+            waitForSeconds(1);
         }
+        return false;
     }
 
     public static boolean isDisplayed(WebElement element) {
