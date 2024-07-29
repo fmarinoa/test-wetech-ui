@@ -16,7 +16,7 @@ public class SearchProductPage extends BasePage {
     public void findProduct(String arg0) throws InterruptedException {
         WebElement product = returnElmentProduct(arg0);
         int attempt = 0;
-        while (!isElementVisibleAndEnabled(product) && attempt <= 5) {
+        while (!isElementVisibleAndEnabled(product, 1) && attempt <= 5) {
             scrollByDown(300);
             waitForSeconds(1);
             attempt++;
