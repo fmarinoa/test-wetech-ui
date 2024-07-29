@@ -4,7 +4,8 @@ import page.ProductPage;
 
 
 public class ProductSteps {
-    private double price;
+    private static double unitPice;
+    private static int quantity;
     ProductPage productPage;
 
     public ProductSteps() {
@@ -17,12 +18,20 @@ public class ProductSteps {
         return Double.parseDouble(cleanPriceText);
     }
 
-    public void setPrice(double currentPrice) {
-        price = currentPrice;
+    public void setUnitPrice(double currentPrice) {
+        unitPice = currentPrice;
     }
 
-    public double getPrice() {
-        return price;
+        public static double getUnitPrice() {
+        return unitPice;
+    }
+
+    public void setQuantity(int expectedQuantity) {
+        quantity = expectedQuantity;
+    }
+
+    public static int getQuantity() {
+        return quantity;
     }
 
     public void addProducts(Integer quantity) throws InterruptedException {

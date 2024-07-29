@@ -4,7 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import step.ProductSteps;
-import step.SearchProductSteps;
 
 import static hook.DriverManager.screenShot;
 
@@ -25,20 +24,16 @@ public class ProductStepDefs {
 
     @And("capturo el precio de una unidad")
     public void capturoElPrecioDeUnaUnidad() throws InterruptedException {
-        double price = productSteps.getCurrentPrice();
-        productSteps.setPrice(price);
+        double unitPrice = productSteps.getCurrentPrice();
+        productSteps.setUnitPrice(unitPrice);
     }
 
     @And("agrego {string} unidades al carrito")
     public void agregoUnidadesAlCarrito(String arg0) throws InterruptedException {
         int quantity = Integer.parseInt(arg0); // Convierte la cadena a un entero
+        productSteps.setQuantity(quantity);
         productSteps.addProducts(quantity);
         productSteps.clickShoppingCart();
         screenShot();
-    }
-
-    @Then("valido que el precio de los productos correspondan el carrito")
-    public void validoQueElPrecioDeLosProductosCorrespondanElCarrito() {
-
     }
 }
